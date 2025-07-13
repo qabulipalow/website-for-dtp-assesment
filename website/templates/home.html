@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>archives</title>
+</head>
+<body>
+    {% if title %}
+    <h1>{{ title }}</h1>
+    {% endif %}
+    
+    <h2>archives</h2>
+    
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Enter brand name">
+        <input type="submit" value="Add Brand">
+    </form>
+    
+    <!-- Display your fashion images -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px;">
+        {% for image in ['margiela.jpg', 'balenciaga.png', 'supreme.png', 'fog.jpg'] %}
+        <div>
+            <img src="{{ url_for('static', filename='images/' + image) }}" style="width: 100%;">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
