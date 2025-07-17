@@ -1,27 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>archives</title>
+    <title>archives. | fashion archsives</title>
+    <style>
+        body {
+            font-family: 'Staatliches', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            color: #333;
+            text-transform: lowercase;
+        }
+        h1, h2 {
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+        }
+        .featured-section {
+            margin: 40px 0;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .featured-card {
+            text-align: center;
+        }
+        .featured-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+        }
+        .featured-card h3 {
+            margin: 10px 0 5px;
+        }
+    </style>
 </head>
 <body>
-    {% if title %}
-    <h1>{{ title }}</h1>
-    {% endif %}
-    
-    <h2>archives</h2>
-    
-    <form action="/add" method="post">
-        <input type="text" name="name" placeholder="Enter brand name">
-        <input type="submit" value="Add Brand">
-    </form>
-    
-    <!-- Display your fashion images -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px;">
-        {% for image in ['margiela.jpg', 'balenciaga.png', 'supreme.png', 'fog.jpg'] %}
-        <div>
-            <img src="{{ url_for('static', filename='images/' + image) }}" style="width: 100%;">
+    <div class="header">
+        <h1>archives.</h1>
+        <nav class="nav">
+            <a href="/">home</a>
+            <a href="/designers">designers</a>
+            <a href="/brands">brands</a>
+            <a href="/items">archive</a>
+        </nav>
+    </div>
+
+    <div class="featured-section">
+        <h2>featured designers</h2>
+        <div class="featured-grid">
+            {% for designer in designers %}
+            <div class="featured-card">
+                <img src="{{ url_for('static', filename='images/' + designer['image_url']) }}" alt="{{ designer['name'] }}">
+                <h3>{{ designer['name'] }}</h3>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+    </div>
+
+    <div class="featured-section">
+        <h2>featured brands</h2>
+        <div class="featured-grid">
+            {% for brand in brands %}
+            <div class="featured-card">
+                <img src="{{ url_for('static', filename='images/' + brand['logo_url']) }}" alt="{{ brand['name'] }}">
+                <h3>{{ brand['name'] }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="featured-section">
+        <h2>featured items</h2>
+        <div class="featured-grid">
+            {% for item in items %}
+            <div class="featured-card">
+                <img src="{{ url_for('static', filename='images/' + item['image_url']) }}" alt="{{ item['name'] }}">
+                <h3>{{ item['name'] }}</h3>
+                <p>${{ "%.2f"|format(item['price']) }}</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
+

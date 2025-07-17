@@ -1,0 +1,11 @@
+your_project/
+    app.py
+    database.db
+    static/
+        images/
+            maison-margiela.jpg  # Note: "maison" not "manson"
+            comme-des-garcons.jpg
+            balenciaga.jpg
+            yohji-yamamoto.jpg
+    templates/
+        home.html
