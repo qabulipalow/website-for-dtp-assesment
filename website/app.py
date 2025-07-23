@@ -6,10 +6,10 @@ app = Flask(__name__)
 # Database connection helper
 def get_db_connection():
     conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row  # Access columns by name
+    conn.row_factory = sqlite3.Row  # Find columns by name
     return conn
 
-# Initialize database (run this once)
+# Start database
 def init_db():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -39,7 +39,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Homepage route - Enhanced version
+# Homepage route
 @app.route('/')
 def home():
     conn = get_db_connection()
@@ -65,5 +65,5 @@ def home():
                          items=items)
 
 if __name__ == '__main__':
-    init_db()  # Initialize database tables (only needed once)
+    init_db()  # Initialize database tables
     app.run(debug=True)
