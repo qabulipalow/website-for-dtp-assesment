@@ -64,6 +64,13 @@ def home():
                          brands=brands,
                          items=items)
 
+@app.route('/designers')
+def all_designers():
+    conn = get_db_connection()
+    designers = conn.execute('SELECT * FROM designers ORDER BY name').fetchall()
+    conn.close()
+    return render_template('designers.html', designers=designers)
+
 if __name__ == '__main__':
     init_db()  # Initialize database tables
     app.run(debug=True)
