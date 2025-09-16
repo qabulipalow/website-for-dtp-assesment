@@ -71,10 +71,11 @@ def all_designers():
     conn.close()
     return render_template('designers.html', designers=designers)
 
-@app.route('/history')
-def fashion_history():
-    return render_template("history.html")
+@app.route('/thehistory')
+def thehistory():
+    return render_template('history.html')
 
 if __name__ == '__main__':
     init_db()  # Initialize database tables
     app.run(debug=True)
+
