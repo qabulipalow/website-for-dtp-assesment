@@ -9,36 +9,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # Find columns by name
     return conn
 
-# Start database
-def init_db():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS designers (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        image_url TEXT
-    )''')
-    
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS brands (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        logo_url TEXT
-    )''')
-    
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS clothing (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        price REAL,
-        image_url TEXT
-    )''')
-    
-    conn.commit()
-    conn.close()
-
 # Homepage route
 @app.route('/')
 def home():
@@ -46,15 +16,15 @@ def home():
     
     # Get 3 random featured items from each category
     designers = conn.execute(
-        'SELECT id, name, image_url FROM designers ORDER BY RANDOM() LIMIT 3'
+        'SELECT designer_id, name, image_url FROM designer ORDER BY RANDOM() LIMIT 3'
     ).fetchall()
     
     brands = conn.execute(
-        'SELECT id, name, logo_url FROM brands ORDER BY RANDOM() LIMIT 3'
+        'SELECT brand_id, name, logo_url FROM brand ORDER BY RANDOM() LIMIT 3'
     ).fetchall()
     
     items = conn.execute(
-        'SELECT id, name, image_url, price FROM clothing ORDER BY RANDOM() LIMIT 3'
+        'SELECT item_id, name, image_url, price FROM item ORDER BY RANDOM() LIMIT 3'
     ).fetchall()
     
     conn.close()
@@ -65,9 +35,9 @@ def home():
                          items=items)
 
 @app.route('/designers')
-def all_designers():
+def all_designer():
     conn = get_db_connection()
-    designers = conn.execute('SELECT * FROM designers ORDER BY name').fetchall()
+    designers = conn.execute('SELECT * FROM designer ORDER BY name').fetchall()
     conn.close()
     return render_template('designers.html', designers=designers)
 
@@ -75,7 +45,19 @@ def all_designers():
 def thehistory():
     return render_template('history.html')
 
-if __name__ == '__main__':
-    init_db()  # Initialize database tables
-    app.run(debug=True)
+@app.route('/brands')
+def all_brand():
+    conn = get_db_connection()
+    brands = conn.execute('SELECT * FROM brand ORDER BY name').fetchall()
+    conn.close()
+    return render_template('brands.html', brands=brands)
 
+@app.route('/items')
+def all_items():
+    conn = get_db_connection()
+    items = conn.execute('SELECT * FROM item ORDER BY name').fetchall()
+    conn.close()
+    return render_template('items.html', items=items)
+
+if __name__ == '__main__':
+    app.run(debug=True)

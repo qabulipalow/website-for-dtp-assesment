@@ -1,0 +1,22 @@
+body {
+    font-family: 'Staatliches', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    line-height: 1.6;
+    color: #333;
+}
+h1 {
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+.era {
+    margin-bottom: 50px;
+}
+.era-title {
+    font-size: 1.3em;
+    margin: 30px 0 10px;
+    color: #555;
+}
