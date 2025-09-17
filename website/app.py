@@ -96,7 +96,8 @@ def home():
 @app.route('/designers')
 def all_designer():
     conn = get_db_connection()
-    designers = conn.execute('SELECT * FROM designer ORDER BY name').fetchall()
+    # Select all the columns you want to display
+    designers = conn.execute('SELECT name, birth_year, country, bio FROM designer ORDER BY name').fetchall()
     conn.close()
     return render_template('designers.html', 
                          designers=designers, 
