@@ -16,15 +16,15 @@ def home():
     
     # Get 3 random featured items from each category
     designers = conn.execute(
-        'SELECT designer_id, name, image_url FROM designer ORDER BY RANDOM() LIMIT 3'
+        'SELECT designer_id, name FROM designer ORDER BY RANDOM() LIMIT 3'  # Removed trailing comma
     ).fetchall()
     
     brands = conn.execute(
-        'SELECT brand_id, name, logo_url FROM brand ORDER BY RANDOM() LIMIT 3'
+        'SELECT brand_id, name FROM brand ORDER BY RANDOM() LIMIT 3'  # Removed trailing comma
     ).fetchall()
     
     items = conn.execute(
-        'SELECT item_id, name, image_url, price FROM item ORDER BY RANDOM() LIMIT 3'
+        'SELECT item_id, name, price FROM item ORDER BY RANDOM() LIMIT 3'  # Removed trailing comma
     ).fetchall()
     
     conn.close()

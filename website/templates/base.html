@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>fashion archives | archives.</title>
+    <title>{% block title %}fashion archives | archives.{% endblock %}</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
+        /* Your existing CSS styles */
         body {
             font-family: 'Staatliches', sans-serif;
             max-width: 1600px;
@@ -44,6 +45,7 @@
             background: white;
         }
     </style>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div class="header">
@@ -57,41 +59,8 @@
         </nav>
     </div>
 
-    <div class="featured-section">
-        <h2>featured designers</h2>
-        <div class="featured-grid">
-            {% for designer in designers %}
-            <div class="featured-card">
-                <h3>{{ designer['name'] }}</h3>
-                <p>ID: {{ designer['designer_id'] }}</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="featured-section">
-        <h2>featured brands</h2>
-        <div class="featured-grid">
-            {% for brand in brands %}
-            <div class="featured-card">
-                <h3>{{ brand['name'] }}</h3>
-                <p>ID: {{ brand['brand_id'] }}</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="featured-section">
-        <h2>featured items</h2>
-        <div class="featured-grid">
-            {% for item in items %}
-            <div class="featured-card">
-                <h3>{{ item['name'] }}</h3>
-                <p>${{ "%.2f"|format(item['price']) }}</p>
-                <p>ID: {{ item['item_id'] }}</p>
-            </div>
-            {% endfor %}
-        </div>
+    <div class="content">
+        {% block content %}{% endblock %}
     </div>
 </body>
 </html>
