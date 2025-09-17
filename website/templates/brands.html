@@ -5,8 +5,6 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
-</head>
 <body>
     <div class="header">
         <h1>archives.</h1>
@@ -26,6 +24,28 @@
             <img src="{{ url_for('static', filename='logo_images/' + brand_image_map.get(brand['name'], 'placeholder.jpg')) }}" 
                  alt="{{ brand['name'] }}">
             <h3>{{ brand['name'] }}</h3>
+            
+            <div class="brand-details">
+                {% if brand['year_founded'] %}
+                    <p><strong>Founded:</strong> {{ brand['year_founded'] }}</p>
+                {% endif %}
+                
+                {% if brand['country'] %}
+                    <p><strong>Origin:</strong> {{ brand['country'] }}</p>
+                {% endif %}
+                
+                {% if brand['price_range'] %}
+                    <p><strong>Price Range:</strong> {{ brand['price_range'] }}</p>
+                {% endif %}
+                
+                {% if brand['category'] %}
+                    <p><strong>Category:</strong> {{ brand['category'] }}</p>
+                {% endif %}
+                
+                {% if brand['description'] %}
+                    <p class="description">{{ brand['description'] }}</p>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div>

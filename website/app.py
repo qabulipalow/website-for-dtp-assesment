@@ -3,13 +3,13 @@ import sqlite3
 
 app = Flask(__name__)
 
-# Database connection helper
+#database connection helper
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row  # Find columns by name
     return conn
 
-# Designer image mapping
+#designer image mapping
 def get_designer_image_map():
     return {
         'Raf Simons': 'rafsimons.jpg',
@@ -29,7 +29,7 @@ def get_designer_image_map():
         'Shayne Oliver': 'shayne.jpg'
     }
 
-# Brand image mapping
+#brand image mapping
 def get_brand_image_map():
     return {
         'Balenciaga': 'balenciaga.png',
@@ -49,7 +49,7 @@ def get_brand_image_map():
         'Yohji Yamamoto': 'yohji.jpg'
     }
 
-# Item image mapping
+#item image mapping
 def get_item_image_map():
     return {
         'Supreme Box Logo "FW 23" cotton hoodie': 'boxlogo.jpg',
@@ -69,18 +69,17 @@ def get_item_image_map():
         'BAPE Shark Hoodie': 'bapezip.jpg'
     }
 
-# Homepage route
+#homepage route
 @app.route('/')
 def home():
     conn = get_db_connection()
-    
+    #random selection of 3 designers, brands, and items
     designers = conn.execute('SELECT designer_id, name FROM designer ORDER BY RANDOM() LIMIT 3').fetchall()
     brands = conn.execute('SELECT brand_id, name FROM brand ORDER BY RANDOM() LIMIT 3').fetchall()
     items = conn.execute('SELECT item_id, name, price FROM item ORDER BY RANDOM() LIMIT 3').fetchall()
     
     conn.close()
-    
-    # DEBUG: Print exact names from database
+    #debugs prints to verify data fetching
     print("DESIGNERS:", [designer['name'] for designer in designers])
     print("BRANDS:", [brand['name'] for brand in brands])
     print("ITEMS:", [item['name'] for item in items])
@@ -92,38 +91,45 @@ def home():
                          designer_image_map=get_designer_image_map(),
                          brand_image_map=get_brand_image_map(),
                          item_image_map=get_item_image_map())
-
+#designers route
 @app.route('/designers')
 def all_designer():
     conn = get_db_connection()
-    # Select all the columns you want to display
     designers = conn.execute('SELECT name, birth_year, country, bio FROM designer ORDER BY name').fetchall()
     conn.close()
     return render_template('designers.html', 
                          designers=designers, 
                          designer_image_map=get_designer_image_map())
-
+#history route
 @app.route('/thehistory')
 def thehistory():
     return render_template('history.html')
-
+#brands route
 @app.route('/brands')
 def all_brand():
     conn = get_db_connection()
-    brands = conn.execute('SELECT * FROM brand ORDER BY name').fetchall()
+    brands = conn.execute('''
+        SELECT brand_id, name, year_founded, country, price_range, category, description 
+        FROM brand 
+        ORDER BY name
+    ''').fetchall()
     conn.close()
     return render_template('brands.html', 
                          brands=brands, 
                          brand_image_map=get_brand_image_map())
-
+#items route
 @app.route('/items')
 def all_items():
     conn = get_db_connection()
-    items = conn.execute('SELECT * FROM item ORDER BY name').fetchall()
+    items = conn.execute('''
+        SELECT item_id, name, price, category, description 
+        FROM item 
+        ORDER BY name
+    ''').fetchall()
     conn.close()
     return render_template('items.html', 
                          items=items, 
                          item_image_map=get_item_image_map())
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) #run in debug mode for development
