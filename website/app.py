@@ -98,7 +98,9 @@ def all_designer():
     conn = get_db_connection()
     designers = conn.execute('SELECT * FROM designer ORDER BY name').fetchall()
     conn.close()
-    return render_template('designers.html', designers=designers, designer_image_map=get_designer_image_map())
+    return render_template('designers.html', 
+                         designers=designers, 
+                         designer_image_map=get_designer_image_map())
 
 @app.route('/thehistory')
 def thehistory():
@@ -109,14 +111,18 @@ def all_brand():
     conn = get_db_connection()
     brands = conn.execute('SELECT * FROM brand ORDER BY name').fetchall()
     conn.close()
-    return render_template('brands.html', brands=brands, brand_image_map=get_brand_image_map())
+    return render_template('brands.html', 
+                         brands=brands, 
+                         brand_image_map=get_brand_image_map())
 
 @app.route('/items')
 def all_items():
     conn = get_db_connection()
     items = conn.execute('SELECT * FROM item ORDER BY name').fetchall()
     conn.close()
-    return render_template('items.html', items=items, item_image_map=get_item_image_map())
+    return render_template('items.html', 
+                         items=items, 
+                         item_image_map=get_item_image_map())
 
 if __name__ == '__main__':
     app.run(debug=True)
