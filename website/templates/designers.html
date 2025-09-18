@@ -21,8 +21,8 @@
     <div class="grid">
         {% for designer in designers %}
         <div class="card">
-            <img src="{{ url_for('static', filename='designer_images/' + designer_image_map.get(designer['name'], 'placeholder.jpg')) }}" 
-                 alt="{{ designer['name'] }}">
+            <img src="{{ url_for('static', filename='designer_images/' + (designer['designer_url'] or 'placeholder.jpeg')) }}" 
+                alt="{{ designer['name'] }}">
             <h3>{{ designer['name'] }}</h3>
             <div class="designer-details">
                 {% if designer['birth_year'] %}

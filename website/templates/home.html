@@ -24,7 +24,7 @@
         <div class="featured-grid">
             {% for designer in designers %}
             <div class="featured-card">
-                <img src="{{ url_for('static', filename='designer_images/' + designer_image_map.get(designer['name'], 'placeholder.jpg')) }}" 
+                <img src="{{ url_for('static', filename='designer_images/' + (designer['designer_url'] or 'placeholder.jpeg')) }}" 
                      alt="{{ designer['name'] }}">
                 <h3>{{ designer['name'] }}</h3>
             </div>
@@ -37,8 +37,8 @@
         <div class="featured-grid">
             {% for brand in brands %}
             <div class="featured-card">
-                <img src="{{ url_for('static', filename='logo_images/' + brand_image_map.get(brand['name'], 'placeholder.jpg')) }}" 
-                     alt="{{ brand['name'] }}">
+                <img src="{{ url_for('static', filename='logo_images/' + (brand['brand_url'] or 'placeholder.jpeg')) }}" 
+                    alt="{{ brand['name'] }}">
                 <h3>{{ brand['name'] }}</h3>
             </div>
             {% endfor %}
@@ -50,8 +50,8 @@
         <div class="featured-grid">
             {% for item in items %}
             <div class="featured-card">
-                <img src="{{ url_for('static', filename='item_images/' + item_image_map.get(item['name'], 'placeholder.jpg')) }}" 
-                     alt="{{ item['name'] }}">
+                <img src="{{ url_for('static', filename='item_images/' + (item['item_url'] or 'placeholder.jpeg')) }}" 
+                    alt="{{ item['name'] }}">
                 <h3>{{ item['name'] }}</h3>
                 <p>${{ "%.2f"|format(item['price']) }}</p>
             </div>

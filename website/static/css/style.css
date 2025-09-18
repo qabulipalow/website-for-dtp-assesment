@@ -195,3 +195,50 @@ h1, h2 {
   width: 120px;
   object-fit: contain; 
 }
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* This crops the image to fill the space */
+    object-position: center; /* Focus on the center of the image */
+}
+
+/* Make sure the card can contain the image */
+.card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #eee;
+    background: white;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* This prevents anything from overflowing the card */
+}
+
+/* Control the image container */
+.card img {
+    width: 100%; /* Make image fill the container width */
+    height: 200px; /* Set a fixed height */
+    object-fit: contain; /* This makes the image fit inside without cropping */
+    border: 1px solid #ddd;
+    margin: 0 auto 15px auto;
+    background: #f5f5f5; /* Light background for images with transparency */
+}
+
+/* Optional: Different heights for different image types */
+.featured-card img {
+    height: 180px; /* Slightly smaller for featured items */
+    object-fit: contain;
+}
+
+/* For brand logos specifically */
+.card img[alt*="brand"] {
+    height: 120px;
+    object-fit: contain;
+    background: #fff; /* White background for logos */
+}
+
+/* Make sure the image container doesn't grow too much */
+.card .image-container {
+    flex-shrink: 0; /* Don't let the image area shrink */
+}
